@@ -14,7 +14,6 @@ public class MusicService extends Service {
     private MediaPlayer mediaPlayer;
     private final IBinder binder = new LocalBinder();
     private MusicEntity currentMusic;
-    private boolean isPrepared;
 
     public class LocalBinder extends Binder {
         public MusicService getService() {
@@ -25,6 +24,8 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         int audioResId = intent.getIntExtra("audioResId", -1);
+        int currentPosition = intent.getIntExtra("currentPosition", 0);
+
         if (audioResId != -1) {
             if (mediaPlayer != null) {
                 if (mediaPlayer.isPlaying()) {
@@ -32,7 +33,9 @@ public class MusicService extends Service {
                 }
                 mediaPlayer.reset();
             }
+
             mediaPlayer = MediaPlayer.create(this, audioResId);
+            mediaPlayer.seekTo(currentPosition);
             mediaPlayer.start();
         }
         return START_STICKY;

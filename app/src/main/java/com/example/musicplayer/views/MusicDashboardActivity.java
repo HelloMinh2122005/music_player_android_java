@@ -1,6 +1,7 @@
 package com.example.musicplayer.views;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -39,6 +40,22 @@ public class MusicDashboardActivity extends AppCompatActivity {
     };
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, MusicService.class);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (serviceBound) {
+            unbindService(serviceConnection);
+            serviceBound = false;
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -54,12 +71,16 @@ public class MusicDashboardActivity extends AppCompatActivity {
         ImageButton btnViewMusic = findViewById(R.id.row5_col2);
         btnViewMusic.setOnClickListener(view -> {
             Intent intent = new Intent(MusicDashboardActivity.this, MusicPlayer.class);
-            startActivity(intent);
+
             if (musicService != null && musicService.getMediaPlayer() != null && musicService.getMediaPlayer().isPlaying()) {
                 intent.putExtra("play_init", 1);
+                intent.putExtra("musicEntity", musicService.getCurrentMusic());
+                intent.putExtra("currentPosition", musicService.getMediaPlayer().getCurrentPosition());
             } else {
                 intent.putExtra("play_init", 2);
             }
+
+            startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         });

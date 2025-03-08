@@ -1,4 +1,5 @@
 package com.example.musicplayer.views;
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -33,6 +34,7 @@ public class MusicPlayer extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             MusicService.LocalBinder binder = (MusicService.LocalBinder) service;
             musicService = binder.getService();
+            musicService.setCurrentMusic(musicItem);
             serviceBound = true;
             setupSeekBar();
         }
@@ -49,13 +51,16 @@ public class MusicPlayer extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_music_player);
 
+        int currentPosition = 0;
+
         int play_init = getIntent().getIntExtra("play_init", 1);
         if (play_init == 3) {
             musicItem = (MusicEntity) getIntent().getSerializableExtra("musicEntity");
         } else if (play_init == 2) {
             musicItem = currentMusicList.getFirstMusic();
         } else {
-            musicItem = currentMusicList.getFirstMusic();
+            musicItem = (MusicEntity) getIntent().getSerializableExtra("musicEntity");
+            currentPosition = getIntent().getIntExtra("currentPosition", 0);
         }
 
         TextView title = findViewById(R.id.tvSongName);
@@ -132,6 +137,7 @@ public class MusicPlayer extends AppCompatActivity {
 
         Intent serviceIntent = new Intent(this, MusicService.class);
         serviceIntent.putExtra("audioResId", musicItem.getFileUrl());
+        serviceIntent.putExtra("currentPosition", currentPosition);
         startService(serviceIntent);
         bindService(serviceIntent, serviceConnection, BIND_AUTO_CREATE);
 
@@ -170,6 +176,7 @@ public class MusicPlayer extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private String formatTime(int millis) {
         int minutes = (millis / 1000) / 60;
         int seconds = (millis / 1000) % 60;
