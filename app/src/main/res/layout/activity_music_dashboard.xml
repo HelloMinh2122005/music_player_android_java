@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.MusicDashboardActivity">
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:weightSum="100">
+
+        <!-- Row 1: 15% of total height -->
+        <LinearLayout
+            android:id="@+id/row1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:weightSum="100">
+
+            <!-- Column 1 in Row 1: 25% of row width -->
+            <ImageView
+                android:id="@+id/row1_col1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:elevation="4dp"
+                android:maxWidth="100dp"
+                android:maxHeight="100dp"
+                android:layout_weight="10"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/main_music_icon" />
+
+            <!-- Column 2 in Row 1: 75% of row width -->
+            <LinearLayout
+                android:id="@+id/row1_col2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="90"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+                <!-- Nested Row 1: 70% of column height -->
+                <TextView
+                    android:id="@+id/row1_col2_row1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="60"
+                    android:text="Music app"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="#333333"
+                    android:layout_marginTop="18dp"
+                    android:gravity="start"/>
+
+                <!-- Nested Row 2: 30% of column height -->
+                <TextView
+                    android:id="@+id/row1_col2_row2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="40"
+                    android:text="Welcome back"
+                    android:textSize="18sp"
+                    android:textColor="#333333"
+                    android:gravity="start"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Row 2: 5% of total height -->
+        <LinearLayout
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My music list"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:paddingStart="10dp"
+                android:paddingTop="20dp"/>
+        </LinearLayout>
+
+
+        <!-- Row 3: 70% of total height -->
+        <ListView
+            android:id="@+id/row3"
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="0dp"
+            android:layout_weight="65"/>
+
+        <!-- Row 4: 10% of total height -->
+        <LinearLayout
+            android:id="@+id/row5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/row5_col1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/list"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:scaleY="0.5"
+                android:scaleX="0.5"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/row5_col2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/sound"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:scaleY="0.5"
+                android:scaleX="0.5" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
