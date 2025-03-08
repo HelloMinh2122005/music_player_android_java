@@ -72,7 +72,7 @@ public class MusicDashboardActivity extends AppCompatActivity {
         btnViewMusic.setOnClickListener(view -> {
             Intent intent = new Intent(MusicDashboardActivity.this, MusicPlayer.class);
 
-            if (musicService != null && musicService.getMediaPlayer() != null && musicService.getMediaPlayer().isPlaying()) {
+            if (musicService != null && musicService.getMediaPlayer() != null ) {
                 intent.putExtra("play_init", 1);
                 intent.putExtra("musicEntity", musicService.getCurrentMusic());
                 intent.putExtra("currentPosition", musicService.getMediaPlayer().getCurrentPosition());
